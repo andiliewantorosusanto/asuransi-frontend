@@ -1,0 +1,468 @@
+<div class="row" [hidden]="!isFormHidden">
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-header">
+        <strong>Simulasi Upgrade</strong>
+      </div>
+      <div class="card-body">
+        <form action="" method="post" class="form-horizontal">
+          <div class="form-group row">
+            <div class="col-md-12">
+              <label for="nomor-kontrak-input">Nomor Kontrak</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user"></i></span>
+                </div>
+                <input type="text" id="nomor-kontrak-input" name="nomor-kontrak-input" class="form-control" [(ngModel)]="nomorKontrak">
+              </div>
+              <div class="mt-1">
+                <small class="text-muted">ex. 1234567891001</small>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-sm btn-success" (click)="getSimulasiUpgradeData()"><i class="fa fa-dot-circle-o"></i> Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div [hidden]="isFormHidden">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Form Perubahan Kondisi Pertanggungan</strong>
+        </div>
+        <div class="card-body">
+          <tabset>
+            <tab>
+              <ng-template tabHeading><i class="cil-people"></i> Data Konsumen</ng-template>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Tanggal Pengajuan</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.tanggalPengajuan}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Perihal Upgrade</label>
+                    <div class="col-md-9">
+                      <input type="text" id="perihal-upgrade" name="perihal-upgrade" class="form-control"  [(ngModel)]="formSimulasi.perihalUpgrade">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Tanggal Realisasi</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.tanggalRealisasi}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">No Kontrak</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{nomorKontrak}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Realisasi (Tahun)</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.tahunRealisasi}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Nama</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.nama}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Produk</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.produk}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">OTR Awal</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.otr}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Merk / Type Kendaraan</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.merkKendaraan}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Kategori Kendaraan</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.kategoriKendaraan}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Tahun Kendaraan</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.tahunKendaraan}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Jenis Penggunaan</label>
+                    <div class="col-md-9">
+                      {{formSimulasi.jenisPenggunaan}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Maskapai Asuransi</label>
+                    <div class="col-md-9">
+                      {{formSimulasi.maskapaiAsuransi}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Kondisi</label>
+                    <div class="col-md-9">
+                      {{formSimulasi.kondisi}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">No Polis</label>
+                    <div class="col-md-9">
+                      {{formSimulasi.noPolis}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">No Polisi</label>
+                    <div class="col-md-9">
+                      {{formSimulasi.noPolisi}}
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Normal / CM</label>
+                    <div class="col-md-9">
+                      <select class="form-control" [(ngModel)]="formSimulasi.coverMundur">
+                        <option value="true">Cover Mundur</option>
+                        <option value="false">Normal</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Survey / Tidak Survey</label>
+                    <div class="col-md-9">
+                      <select class="form-control" [(ngModel)]="formSimulasi.survey">
+                        <option value="true">Survey</option>
+                        <option value="false">Tidak Survey</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Alamat Pengiriman</label>
+                    <div class="col-md-9">
+                      <input type="text" id="alamat-pengiriman" name="alamat-pengiriman" class="form-control"  [(ngModel)]="formSimulasi.alamatPengiriman">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Remarks</label>
+                    <div class="col-md-9">
+                      <textarea id="textarea-input" name="textarea-input" rows="6" placeholder="" class="form-control" [(ngModel)]="formSimulasi.remarks"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab>
+              <ng-template tabHeading><i class="icon-calculator"></i> Data Simulasi</ng-template>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">RSCC</label>
+                      <div class="col-md-6">
+                        <input type="text" id="rscc" name="rscc" class="form-control"  [(ngModel)]="formSimulasi.RSCC">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">TJH</label>
+                      <div class="col-md-6">
+                        <select class="form-control" [(ngModel)]="formSimulasi.TJH">
+                          <ng-container *ngFor="let r of rateTjh; let i = index">
+                            <option [value]="i">{{r.TJHName}}</option>
+                          </ng-container>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Bencana Alam</label>
+                      <div class="col-md-6">
+                        <input type="text" id="bencana-alam" name="bencana-alam" class="form-control"  [(ngModel)]="formSimulasi.bencanaAlam">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Aksesoris</label>
+                      <div class="col-md-6">
+                        <input type="text" id="aksesoris" name="aksesoris" class="form-control"  [(ngModel)]="formSimulasi.aksesoris">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Upgrade All Risk</label>
+                      <div class="col-md-6 col-form-label">
+                        <div class="form-check">
+                          <input type="checkbox" value="true" id="all-risk" class="form-check-input" [(ngModel)]="formSimulasi.upgradeAllRisk">
+                          <label for="all-risk" class="form-check-label">Ya</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Periode Upgrade</label>
+                      <div class="col-md-3">
+                        <select class="form-control" [(ngModel)]="formSimulasi.periodeUpgradeDari">
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <option [value]="p.tahun">{{p.tahun}}</option>
+                          </ng-container>
+                        </select>
+                      </div>
+                      <div class="col-md-3">
+                        <select class="form-control" [(ngModel)]="formSimulasi.periodeUpgradeSampai">
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <option [value]="p.tahun">{{p.tahun}}</option>
+                          </ng-container>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Lain-Lain</label>
+                      <div class="col-md-6 py-2">
+                        <ul class="p-0">
+                          <li *ngIf="this.formSimulasi.biayaLoading">
+                            <span class="badge badge-warning">Biaya Loading 5%</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Aksi</label>
+                      <div class="col-md-6 py-2">
+                        <button type="submit" class="btn btn-sm btn-primary" (click)="calculateSimulasi()"><i class="fa fa-dot-circle-o"></i> Kalkulasi</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-12">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <th>
+                              Tahun Ke-{{p.tahun}} ({{p.jenisAsuransi}})
+                               <br>
+                              <small>  ( {{(p.prorata >= 1) ? p.prorata : p.prorata}} )
+                                {{p.periodePolisDari}} -> {{p.periodePolisSampai}}</small>
+                            </th>
+
+                          </ng-container>
+                          <th>Total Premi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Penyusutan (%)</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.penyusutan}}</td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Nilai Pertanggungan</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.nilaiPertanggungan | number:'1.0':'en-US'}}</td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr class="bg-dark">
+                          <td>Total Premi</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.totalPremiPertanggungan | number:'1.0':'en-US'}}</td>
+                          </ng-container>
+                          <td>{{formSimulasi.totalPremiPertanggungan | number:'1.0':'en-US'}}</td>
+                        </tr>
+                        <tr>
+                          <td>RSCC</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.RSCC | number:'1.0':'en-US'}} <small>({{p.RSCCRate}}%)</small></td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Bencana Alam</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.bencanaAlam | number:'1.0':'en-US'}} <small>({{p.bencanaAlamRate}}%)</small> </td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>TJH</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.TJH | number:'1.0':'en-US'}}</td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Aksesoris</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.aksesoris | number:'1.0':'en-US'}} <small>({{p.aksesorisRate}}%)</small> </td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr class="bg-dark">
+                          <td>Total Premi</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.totalPremiPerluasan | number:'1.0':'en-US'}}</td>
+                          </ng-container>
+                          <td>{{formSimulasi.totalPremiPerluasan | number:'1.0':'en-US'}}</td>
+                        </tr>
+                        <tr>
+                          <ng-container *ngFor="let item of [].constructor(polisTahunan.length); let i = index">
+                            <td></td>
+                          </ng-container>
+                          <td>Biaya Administrasi</td>
+                          <td>{{formSimulasi.biayaAdmin | number:'1.0':'en-US'}}</td>
+                        </tr>
+                        <tr>
+                          <ng-container *ngFor="let item of [].constructor(polisTahunan.length); let i = index">
+                            <td></td>
+                          </ng-container>
+                          <td>Total Yang Dibayarkan</td>
+                          <td>{{formSimulasi.totalBiaya | number:'1.0':'en-US'}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </tab>
+          </tabset>
+
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="insertSimulasi()"><i class="fa fa-dot-circle-o"></i> Buat Permohonan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+<div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          Register Order Asuransi
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="callout callout-warning">
+                    <small class="text-muted">Proses Pembayaran</small>
+                    <br>
+                    <strong class="h4">{{prosesPembayaran}}</strong>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="callout callout-info">
+                    <small class="text-muted">Pembayaran Berhasil</small>
+                    <br>
+                    <strong class="h4">{{pembayaranBerhasil}}</strong>
+                  </div>
+                </div>
+              </div>
+              <hr class="mt-0">
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="callout callout-danger">
+                    <small class="text-muted">Lewat Masa Pembayaran</small>
+                    <br>
+                    <strong class="h4">{{lewatMasaPembayaran}}</strong>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="callout callout-success">
+                    <small class="text-muted">Order Ke Maskapai</small>
+                    <br>
+                    <strong class="h4">{{orderKeMaskapai}}</strong>
+                  </div>
+                </div>
+              </div>
+              <hr class="mt-0">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                      <i class="fa fa-search"></i>
+                  </span>
+                </div>
+                <input type="text" id="search-table" name="search-table" placeholder="search" class="form-control" [(ngModel)]="search" (ngModelChange)="filterData()">
+              </div>
+            </div>
+            <div>
+              <div class="input-group border">
+                <div class="input-group-prepend btn-square">
+                  <span class="input-group-text">
+                      <i class="fa fa-filter"></i>
+                  </span>
+                </div>
+                <button type="button" class="btn btn-square"  [ngClass]="isProsesPembayaran ? 'btn-warning' : 'btn-ghost-secondary'" (click)="toggleProsesPembayaran()">
+                  <i class="cil-wallet"></i>&nbsp;Proses Pembayaran
+                </button>
+                <button type="button" class="btn btn-square" [ngClass]="isPembayaranBerhasil ? 'btn-primary' : 'btn-ghost-secondary'" (click)="togglePembayaranBerhasil()">
+                  <i class="fa fa-check"></i>&nbsp;Pembayaran Berhasil
+                </button>
+                <button type="button" class="btn btn-square" [ngClass]="isLewatMasaPembayaran ? 'btn-danger' : 'btn-ghost-secondary'" (click)="toggleLewatMasaPembayaran()">
+                  <i class="fa fa-times"></i>&nbsp;Lewat Masa Pembayaran
+                </button>
+                <button type="button" class="btn btn-square" [ngClass]="isOrderKeMaskapai ? 'btn-success' : 'btn-ghost-secondary'" (click)="toggleOrderKeMaskapai()">
+                  <i class="fa fa-book"></i>&nbsp;Order Ke Maskapai
+                </button>
+              </div>
+
+            </div>
+          </div>
+          <br>
+          <table class="table table-responsive-sm table-hover table-outline mb-0">
+            <thead class="thead-light">
+              <tr>
+                <th>Konsumen</th>
+                <th>Perihal</th>
+                <th>No Kontrak</th>
+                <th>No VA</th>
+                <th>Total Biaya</th>
+                <th>Progress</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let lp of list | paginate: { itemsPerPage: 10, currentPage: page }">
+                <td>
+                  <div>{{lp.nama}}</div>
+                  <div class="small text-muted">
+                    Tanggal Pengajuan: {{lp.tanggalPengajuan}}
+                  </div>
+                </td>
+                <td>
+                  {{lp.perihalUpgrade}}
+                </td>
+                <td>
+                  {{lp.nomorRekening}}{{lp.nomorPin}}
+                </td>
+                <td>
+                  {{lp.va}}
+                </td>
+                <td>
+                  Rp. {{lp.totalBiaya}}
+                </td>
+                <td>
+                  <span class="badge badge-warning" *ngIf="lp.statusUpgradeId == 1">Proses Pembayaran</span>
+                  <span class="badge badge-primary" *ngIf="lp.statusUpgradeId == 2">Pembayaran Berhasil</span>
+                  <span class="badge badge-danger" *ngIf="lp.statusUpgradeId == 3">Pembayaran Lewat</span>
+                  <span class="badge badge-success" *ngIf="lp.statusUpgradeId >= 4">Order Maskapai</span>
+                </td>
+                <td>
+                  <button type="button" class="btn btn-primary" (click)="detail(lp.id)"><i class="fa fa-edit"></i>&nbsp;Detail</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <div class="text-center">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

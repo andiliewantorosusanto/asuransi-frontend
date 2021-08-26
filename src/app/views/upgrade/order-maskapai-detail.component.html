@@ -1,0 +1,766 @@
+<style>
+  .hover-light:hover {
+    background-color: #f0f3f5;
+    transition: background-color 0.2s ease;
+  }
+  .icon-show-hover{
+    display: none;
+  }
+  .hover-light:hover > div > h1 > .icon-gone-hover {
+    display: none;
+  }
+  .hover-light:hover > div > h1 > .icon-show-hover {
+    display: inline-block;
+  }
+  .vertical-timeline {
+    width: 100%;
+    position: relative;
+    padding: 1.5rem 0 1rem
+}
+
+.vertical-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 67px;
+    height: 100%;
+    width: 4px;
+    background: #e9ecef;
+    border-radius: .25rem
+}
+
+.vertical-timeline-element {
+    position: relative;
+    margin: 0 0 1rem
+}
+
+.vertical-timeline--animate .vertical-timeline-element-icon.bounce-in {
+    visibility: visible;
+    animation: cd-bounce-1 .8s
+}
+
+.vertical-timeline-element-icon {
+    position: absolute;
+    top: 0;
+    left: 60px
+}
+
+.vertical-timeline-element-icon .badge-dot-xl {
+    box-shadow: 0 0 0 5px #fff
+}
+
+.badge-dot-xl {
+    width: 18px;
+    height: 18px;
+    position: relative
+}
+
+.badge:empty {
+    display: none
+}
+
+.badge-dot-xl::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: .25rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -5px 0 0 -5px;
+    background: #fff
+}
+
+.vertical-timeline-element-content {
+    position: relative;
+    margin-left: 90px;
+    font-size: .8rem
+}
+
+.vertical-timeline-element-content .timeline-title {
+    font-size: .8rem;
+    text-transform: uppercase;
+    margin: 0 0 .5rem;
+    padding: 2px 0 0;
+    font-weight: bold
+}
+
+.vertical-timeline-element-content .vertical-timeline-element-date {
+    display: block;
+    position: absolute;
+    left: -90px;
+    top: 0;
+    padding-right: 10px;
+    text-align: right;
+    color: #adb5bd;
+    font-size: .7619rem;
+    white-space: nowrap
+}
+
+.vertical-timeline-element-content:after {
+    content: "";
+    display: table;
+    clear: both
+}
+</style>
+<div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{formSimulasi.nama}} - {{formSimulasi.nomorRekening}}{{formSimulasi.nomorPin}} </strong>
+          <span class="badge badge-warning" *ngIf="formSimulasi.statusUpgradeId == 1">Proses Pembayaran</span>
+          <span class="badge badge-primary" *ngIf="formSimulasi.statusUpgradeId == 2">Pembayaran Berhasil</span>
+          <span class="badge badge-danger" *ngIf="formSimulasi.statusUpgradeId == 3">Pembayaran Lewat</span>
+          <span class="badge badge-success" *ngIf="formSimulasi.statusUpgradeId == 4">Order Maskapai</span>
+        </div>
+        <div class="card-body">
+          <tabset>
+            <tab>
+              <ng-template tabHeading><i class="cil-people"></i> Data Konsumen</ng-template>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Tanggal Pengajuan</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.tanggalPengajuan}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Perihal Upgrade</label>
+                    <div class="col-md-9">
+                      <input type="text" id="perihal-upgrade" name="perihal-upgrade" class="form-control"  [(ngModel)]="formSimulasi.perihalUpgrade" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Tanggal Realisasi</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.tanggalRealisasi}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">No Kontrak</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.nomorRekening}}{{formSimulasi.nomorPin}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Realisasi (Tahun)</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.tahunRealisasi}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Nama</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.nama}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Produk</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.produk}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">OTR Awal</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.otr}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Merk / Type Kendaraan</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.merkKendaraan}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Kategori Kendaraan</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.kategoriKendaraan}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Tahun Kendaraan</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.tahunKendaraan}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Jenis Penggunaan</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.jenisPenggunaan}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Maskapai Asuransi</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.maskapaiAsuransi}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Kondisi</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.kondisi}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">No Polis</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.noPolis}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">No Polisi</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.noPolisi}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Normal / CM</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        <ng-container *ngIf="formSimulasi.coverMundur">Cover Mundur</ng-container>
+                        <ng-container *ngIf="!formSimulasi.coverMundur">Normal</ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Survey / Tidak Survey</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        <ng-container *ngIf="formSimulasi.survey">Survey</ng-container>
+                        <ng-container *ngIf="!formSimulasi.survey">Tidak Survey</ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Alamat Pengiriman</label>
+                    <div class="col-md-9">
+                      <input type="text" id="alamat-pengiriman" name="alamat-pengiriman" class="form-control"  [(ngModel)]="formSimulasi.alamatPengiriman" disabled>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Remarks</label>
+                    <div class="col-md-9">
+                      <textarea id="textarea-input" name="textarea-input" rows="6" placeholder="" class="form-control" [(ngModel)]="formSimulasi.remarks" disabled></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab>
+              <ng-template tabHeading><i class="icon-calculator"></i> Data Simulasi</ng-template>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">RSCC</label>
+                      <div class="col-md-6">
+                        <input type="text" id="rscc" name="rscc" class="form-control"  [(ngModel)]="formSimulasi.RSCC" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">TJH</label>
+                      <div class="col-md-6">
+                        <input type="text" id="rscc" name="rscc" class="form-control"  [(ngModel)]="formSimulasi.TJH" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Bencana Alam</label>
+                      <div class="col-md-6">
+                        <input type="text" id="bencana-alam" name="bencana-alam" class="form-control"  [(ngModel)]="formSimulasi.bencanaAlam" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Aksesoris</label>
+                      <div class="col-md-6">
+                        <input type="text" id="aksesoris" name="aksesoris" class="form-control"  [(ngModel)]="formSimulasi.aksesoris" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Upgrade All Risk</label>
+                      <div class="col-md-6 col-form-label">
+                        <div class="form-check">
+                          <input type="checkbox" value="true" id="all-risk" class="form-check-input" [(ngModel)]="formSimulasi.upgradeAllRisk" disabled>
+                          <label for="all-risk" class="form-check-label">Ya</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Periode Upgrade</label>
+                      <div class="col-md-3">
+                        <select class="form-control" [(ngModel)]="formSimulasi.periodeUpgradeDari" disabled>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <option [value]="p.tahun">{{p.tahun}}</option>
+                          </ng-container>
+                        </select>
+                      </div>
+                      <div class="col-md-3">
+                        <select class="form-control" [(ngModel)]="formSimulasi.periodeUpgradeSampai" disabled>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <option [value]="p.tahun">{{p.tahun}}</option>
+                          </ng-container>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Lain-Lain</label>
+                      <div class="col-md-6 py-2">
+                        <ul class="p-0">
+                          <li *ngIf="this.formSimulasi.biayaLoading">
+                            <span class="badge badge-warning">Biaya Loading 5%</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-md-3 col-form-label">Aksi</label>
+                      <div class="col-md-6 py-2">
+                        <button type="submit" class="btn btn-sm btn-primary" (click)="calculateSimulasi()"><i class="fa fa-dot-circle-o"></i> Kalkulasi</button>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-12">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <th>
+                              Tahun Ke-{{p.tahun}} ({{p.jenisAsuransi}})
+                               <br>
+                              <small>  ( {{(p.prorata >= 1) ? p.prorata : p.prorata}} )
+                                {{p.periodePolisDari}} -> {{p.periodePolisSampai}}</small>
+                            </th>
+
+                          </ng-container>
+                          <th>Total Premi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Penyusutan (%)</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.penyusutan}}</td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Nilai Pertanggungan</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.nilaiPertanggungan | number:'1.0':'en-US'}}</td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr class="bg-dark">
+                          <td>Total Premi</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.totalPremiPertanggungan | number:'1.0':'en-US'}}</td>
+                          </ng-container>
+                          <td>{{formSimulasi.totalPremiPertanggungan | number:'1.0':'en-US'}}</td>
+                        </tr>
+                        <tr>
+                          <td>RSCC</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.RSCC | number:'1.0':'en-US'}} <small>({{p.RSCCRate}}%)</small></td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Bencana Alam</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.bencanaAlam | number:'1.0':'en-US'}} <small>({{p.bencanaAlamRate}}%)</small> </td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>TJH</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.TJH | number:'1.0':'en-US'}}</td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Aksesoris</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.aksesoris | number:'1.0':'en-US'}} <small>({{p.aksesorisRate}}%)</small> </td>
+                          </ng-container>
+                          <td></td>
+                        </tr>
+                        <tr class="bg-dark">
+                          <td>Total Premi</td>
+                          <ng-container *ngFor="let p of polisTahunan">
+                            <td>{{p.totalPremiPerluasan | number:'1.0':'en-US'}}</td>
+                          </ng-container>
+                          <td>{{formSimulasi.totalPremiPerluasan | number:'1.0':'en-US'}}</td>
+                        </tr>
+                        <tr>
+                          <ng-container *ngFor="let item of [].constructor(polisTahunan.length); let i = index">
+                            <td></td>
+                          </ng-container>
+                          <td>Biaya Administrasi</td>
+                          <td>{{formSimulasi.biayaAdmin | number:'1.0':'en-US'}}</td>
+                        </tr>
+                        <tr>
+                          <ng-container *ngFor="let item of [].constructor(polisTahunan.length); let i = index">
+                            <td></td>
+                          </ng-container>
+                          <td>Total Yang Dibayarkan</td>
+                          <td>{{formSimulasi.totalBiaya | number:'1.0':'en-US'}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab>
+              <ng-template tabHeading><i class="cil-cash"></i> Detail Pembayaran</ng-template>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Nomor VA</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.va}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Jumlah Yang Dibayarkan</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        Rp. {{formSimulasi.totalBiaya | number:'1.0':'en-US'}},00-
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Tanggal Expired</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        {{formSimulasi.dateExpired}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label">Status Pembayaran</label>
+                    <div class="col-md-9">
+                      <div class="py-2">
+                        <span class="badge badge-warning" *ngIf="formSimulasi.statusUpgradeId == 1">Proses Pembayaran</span>
+                        <span class="badge badge-primary" *ngIf="formSimulasi.statusUpgradeId == 2">Pembayaran Berhasil</span>
+                        <span class="badge badge-danger" *ngIf="formSimulasi.statusUpgradeId == 3">Pembayaran Lewat</span>
+                        <span class="badge badge-success" *ngIf="formSimulasi.statusUpgradeId == 4">Order Maskapai</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab>
+              <ng-template tabHeading><i class="cil-file"></i> File Pendukung</ng-template>
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <i class="fa fa-gear fa-lg"></i> File Generate System
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2"  >
+                          <div class="card align-middle py-5 mb-0 pb-3 hover-light" style="cursor: pointer;" (click)="showPDF('Form Perubahan Kondisi Pertanggungan')">
+                            <div style="text-align: center;">
+                              <h1>
+                                <i class="fa fa-file-pdf-o fa-lg icon-gone-hover"></i>
+                                <i class="fa fa-download fa-lg icon-show-hover"></i>
+                              </h1>
+                            </div>
+                            <br>
+                            <div style="text-align: center;">
+                              <h6>
+                                Form Perubahan Kondisi Pertanggungan.pdf
+                              </h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <i class="cil-people"></i> File Upload User
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <ng-container *ngFor="let f of files">
+                          <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-2">
+                            <div class="card align-middle py-5 mb-0 pb-3 hover-light" style="cursor: pointer; height: auto;" (click)="downloadFile(f.url,f.name)">
+                              <div style="text-align: center;">
+                                <h1>
+                                  <i *ngIf="f.extension == 'pdf' " class="fa fa-file-pdf-o fa-lg icon-gone-hover"></i>
+                                  <i *ngIf="f.extension == 'png' || f.extension == 'jpg' " class="fa fa-file-image-o fa-lg icon-gone-hover"></i>
+                                  <i *ngIf="f.extension == 'xlsx' " class="fa fa-file-excel-o fa-lg icon-gone-hover"></i>
+                                  <i *ngIf="f.extension == 'zip' " class="fa fa-file-archive-o fa-lg icon-gone-hover"></i>
+                                  <i *ngIf="f.extension != 'zip' &&  f.extension != 'xlsx' && f.extension != 'png' &&  f.extension != 'jpg' &&  f.extension != 'pdf'" class="fa fa-file-o fa-lg icon-gone-hover"></i>
+                                  <i class="fa fa-download fa-lg icon-show-hover"></i>
+                                </h1>
+                              </div>
+                              <br>
+                              <div style="text-align: center;">
+                                <h6>
+                                  {{f.nama}}
+                                </h6>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
+                        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                          <input type="file" #file style="display: none;" (change)="handleFileInput($event.target.files,formSimulasi.id)">
+                          <div class="card align-middle py-5 mb-0 pb-3 btn btn-outline-primary" style="cursor: pointer;" (click)="file.click()">
+                            <div style="text-align: center;">
+                              <h1>
+                                <i class="fa fa-cloud-upload fa-lg "></i>
+                              </h1>
+                            </div>
+                            <br>
+                            <div style="text-align: center;">
+                              <h6>
+                                Upload New File
+                              </h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tab>
+            <tab>
+              <ng-template tabHeading><i class="fa fa-calendar"></i> Request Order</ng-template>
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <i class="fa fa-calendar"></i>Post Status Selanjutnya
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Tanggal Pengajuan</label>
+                            <div class="col-md-9">
+                              <div class="py-2">
+                                {{formSimulasi.tanggalPengajuan}}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Status</label>
+                            <div class="col-md-9">
+                              <select class="form-control" [(ngModel)]="timeline.statusUpgradeId">
+                                <option value="4">Pengajuan Ke KP</option>
+                                <option value="5">Di Proses Oleh KP</option>
+                                <option value="6">Pending Oleh KP</option>
+                                <option value="7">Polis Terbit</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group row">
+                            <label class="col-md-3 col-form-label">Komentar</label>
+                            <div class="col-md-9">
+                              <div class="py-2">
+                                <textarea id="textarea-komentar" name="textarea-komentar" rows="6" placeholder="" class="form-control" [(ngModel)]="timeline.komentar"></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <button class="btn btn-primary" (click)="changeStatus(formSimulasi.id)">
+                        <i class="fa fa-check"></i> Post Status
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <i class="fa fa-calendar"></i>Timeline Pengajuan
+                    </div>
+                    <div class="card-body">
+                        <div class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column" *ngFor="let t of timelines">
+                            <div class="vertical-timeline-item vertical-timeline-element">
+                                <div> <span class="vertical-timeline-element-icon bounce-in"> <i class="badge badge-dot badge-dot-xl badge-success"></i> </span>
+                                    <div class="vertical-timeline-element-content bounce-in">
+                                        <h4 class="timeline-title" *ngIf="t.statusUpgradeId == 4">Pengajuan ke KP</h4>
+                                        <h4 class="timeline-title" *ngIf="t.statusUpgradeId == 5">Diproses oleh KP</h4>
+                                        <h4 class="timeline-title" *ngIf="t.statusUpgradeId == 6">Pending KP</h4>
+                                        <h4 class="timeline-title" *ngIf="t.statusUpgradeId == 7">Polis Terbit</h4>
+                                        <p>{{t.komentar}}</p> <span class="vertical-timeline-element-date">{{t.created_at}}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
